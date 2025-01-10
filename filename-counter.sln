@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilenameCounter", "Filename
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilenameCounter.IntegrationTests", "FilenameCounter.IntegrationTests\FilenameCounter.IntegrationTests.csproj", "{6A2F47F9-1358-419E-ADBA-342E5B2A8448}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilenameCounter.UnitTests", "FilenameCounter.UnitTests\FilenameCounter.UnitTests.csproj", "{23B5ECDB-67F1-4FBE-A9D4-F1389743F2FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{6A2F47F9-1358-419E-ADBA-342E5B2A8448}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A2F47F9-1358-419E-ADBA-342E5B2A8448}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A2F47F9-1358-419E-ADBA-342E5B2A8448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23B5ECDB-67F1-4FBE-A9D4-F1389743F2FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23B5ECDB-67F1-4FBE-A9D4-F1389743F2FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23B5ECDB-67F1-4FBE-A9D4-F1389743F2FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23B5ECDB-67F1-4FBE-A9D4-F1389743F2FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
