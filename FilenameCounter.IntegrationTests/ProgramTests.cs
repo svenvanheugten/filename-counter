@@ -31,17 +31,22 @@ public class ProgramTests
     }
 
     [Theory, AutoData]
-    public void Main_WithFileWithExtension_ExitsSuccessfully(string filename, string extension)
+    public void Main_WithFileWithExtension_WhichIsEmpty_FindsZeroOccurrences(string filename, string extension)
     {
-        var act = () => ActWithExistingFile($"{filename}.{extension}");
-        
-        act.Should().NotThrow();
+        ActWithExistingFile($"{filename}.{extension}")
+            .Should()
+            .Be("found 0");
     }
 
-    private static void ActWithExistingFile(string filename)
+    private static string ActWithExistingFile(string filename)
     {
         var path = Path.Combine(Path.GetTempPath(), filename);
         using (File.Create(path)) { }
+
+        using var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
         Program.Main([path]);
+
+        return stringWriter.ToString().Trim();
     }
 }
