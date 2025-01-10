@@ -18,19 +18,24 @@ public static class Program
             return 1;
         }
 
-        using var f = File.Open(path, FileMode.Open);
-        var name = Path.GetFileNameWithoutExtension(path);
-        using var file = new System.IO.StreamReader(f);
-        string line;
-        int counter = 0;
-        while (true)
+        var filenameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+        
+        using var file = File.Open(path, FileMode.Open);
+        using var streamReader = new StreamReader(file);
+        var counter = 0;
+
+        while (!streamReader.EndOfStream)
         {
-            line = file.ReadLine();
-            if (line == null) break;
-            if (line.Contains(name))
-                counter++;  
+            var line = streamReader.ReadLine();
+
+            if (line != null && line.Contains(filenameWithoutExtension))
+            {
+                counter++;
+            }
         }
+
         Console.WriteLine("found " + counter);
+
         return 0;
     }
 }
