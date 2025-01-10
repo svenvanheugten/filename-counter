@@ -11,19 +11,21 @@ public static class Program
         }
 
         var path = args[0];
+        var filenameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+        
+        try
+        {
+            var fileContents = File.ReadAllText(path);
+            var stringSearcherOverFileContents = new StringSearcher(fileContents);
+            var count = stringSearcherOverFileContents.CountOccurrences(filenameWithoutExtension);
 
-        if (!File.Exists(path))
+            Console.WriteLine($"Found {count} occurrences in file.");
+            return 0;
+        }
+        catch (FileNotFoundException)
         {
             Console.Error.WriteLine($"Error: The file {path} does not exist.");
             return 1;
         }
-
-        var filenameWithoutExtension = Path.GetFileNameWithoutExtension(path);
-        var stringSearcherOverFileContents = new StringSearcher(File.ReadAllText(path));
-        var count = stringSearcherOverFileContents.CountOccurrences(filenameWithoutExtension);
-
-        Console.WriteLine($"Found {count} occurrences in file.");
-
-        return 0;
     }
 }
