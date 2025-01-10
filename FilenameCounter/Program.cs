@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 namespace ConsoleApp1
 {
-    class Program
+    public class Program
     {
         public static string[] args;
         Program(string[] args)
@@ -27,7 +27,7 @@ namespace ConsoleApp1
             }
             Console.WriteLine("found " + counter);
         }
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Program program = new Program(args);
             program.Run();
