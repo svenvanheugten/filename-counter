@@ -25,7 +25,7 @@ public class ProgramTests
     [Theory, AutoData] // TODO: Fix this bug.
     public void Main_WithFileWithoutExtension_UnfortunatelyThrowsArgumentOutOfRangeException(string filename)
     {
-        var act = () => ActWithExistingFile(filename);
+        var act = () => ActWithExistingFile(filename, "");
         
         act.Should().Throw<ArgumentOutOfRangeException>();
     }
@@ -33,15 +33,26 @@ public class ProgramTests
     [Theory, AutoData]
     public void Main_WithFileWithExtension_WhichIsEmpty_FindsZeroOccurrences(string filename, string extension)
     {
-        ActWithExistingFile($"{filename}.{extension}")
+        ActWithExistingFile($"{filename}.{extension}", "")
+            .Should()
+            .Be("found 0");
+    }
+    
+    [Theory, AutoData] // TODO: Fix this bug.
+    public void Main_WithFileWithExtension_WhichContainsTwoOccurrences_UnfortunatelyFindsZeroOccurrences(
+        string filename,
+        string extension
+    )
+    {
+        ActWithExistingFile($"{filename}.{extension}", $"{filename}\n{filename}")
             .Should()
             .Be("found 0");
     }
 
-    private static string ActWithExistingFile(string filename)
+    private static string ActWithExistingFile(string filename, string contents)
     {
         var path = Path.Combine(Path.GetTempPath(), filename);
-        using (File.Create(path)) { }
+        File.WriteAllText(path, contents);
 
         using var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
