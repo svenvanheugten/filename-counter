@@ -68,6 +68,14 @@ public class ProgramTests
             .Be(new ProgramOutput(0, "found 1", ""));
     }
 
+    [Theory, AutoData] // TODO: Fix this bug.
+    public void Main_WithFile_WhichContainsTwoOccurrencesInOneLine_UnfortunatelyFindsOneOccurrence(string filename)
+    {
+        ActWithExistingFile(filename, $"{filename}{filename}")
+            .Should()
+            .Be(new ProgramOutput(0, "found 1", ""));
+    }
+
     private static ProgramOutput ActWithExistingFile(string filename, string contents)
     {
         var path = Path.Combine(Path.GetTempPath(), filename);
