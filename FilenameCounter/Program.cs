@@ -27,10 +27,11 @@ namespace ConsoleApp1
             }
             Console.WriteLine("found " + counter);
         }
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
             Program program = new Program(args);
             program.Run();
+            return 0;
         }
     }
 }

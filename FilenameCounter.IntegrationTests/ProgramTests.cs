@@ -35,7 +35,7 @@ public class ProgramTests
     {
         ActWithExistingFile($"{filename}.{extension}", "")
             .Should()
-            .Be("found 0");
+            .Be(new ProgramOutput(0, "found 0"));
     }
     
     [Theory, AutoData] // TODO: Fix this bug.
@@ -46,7 +46,7 @@ public class ProgramTests
     {
         ActWithExistingFile($"{filename}.{extension}", $"{filename}\n{filename}")
             .Should()
-            .Be("found 0");
+            .Be(new ProgramOutput(0, "found 0"));
     }
     
     [Theory, AutoData] // TODO: Fix this bug.
@@ -58,18 +58,20 @@ public class ProgramTests
     {
         ActWithExistingFile($"{filename}.{extension1}.{extension2}", $"{filename}")
             .Should()
-            .Be("found 0");
+            .Be(new ProgramOutput(0, "found 0"));
     }
 
-    private static string ActWithExistingFile(string filename, string contents)
+    private static ProgramOutput ActWithExistingFile(string filename, string contents)
     {
         var path = Path.Combine(Path.GetTempPath(), filename);
         File.WriteAllText(path, contents);
 
-        using var stringWriter = new StringWriter();
-        Console.SetOut(stringWriter);
-        Program.Main([path]);
+        using var stdout = new StringWriter();
+        Console.SetOut(stdout);
+        var exitCode = Program.Main([path]);
 
-        return stringWriter.ToString().Trim();
+        return new(exitCode, stdout.ToString().Trim());
     }
+
+    private record ProgramOutput(int ExitCode, string Stdout);
 }
