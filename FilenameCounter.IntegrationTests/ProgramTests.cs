@@ -92,6 +92,4 @@ public class ProgramTests
         var exitCode = Program.Main(args);
         return new(exitCode, stdout.ToString().Trim(), stderr.ToString().Trim());
     }
-
-    private record ProgramOutput(int ExitCode, string Stdout, string Stderr);
 }
