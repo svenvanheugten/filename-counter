@@ -10,7 +10,7 @@ public class ProgramTests
     {
         Act()
             .Should()
-            .Be(new ProgramOutput(1, "", $"Usage: {AppDomain.CurrentDomain.FriendlyName} [path]"));
+            .FailWithError($"Usage: {AppDomain.CurrentDomain.FriendlyName} [path]");
     }
 
     [Theory, AutoData]
@@ -18,7 +18,7 @@ public class ProgramTests
     {
         Act(path)
             .Should()
-            .Be(new ProgramOutput(1, "", $"Error: The file {path} does not exist."));
+            .FailWithError($"Error: The file {path} does not exist.");
     }
     
     [Theory, AutoData]
@@ -26,7 +26,7 @@ public class ProgramTests
     {
         ActWithExistingFile(filename, "")
             .Should()
-            .Be(new ProgramOutput(0, "found 0", ""));
+            .SucceedWithCount(0);
     }
 
     [Theory, AutoData]
@@ -34,7 +34,7 @@ public class ProgramTests
     {
         ActWithExistingFile(filename, $"{filename}\n{filename}")
             .Should()
-            .Be(new ProgramOutput(0, "found 2", ""));
+            .SucceedWithCount(2);
     }
 
     [Theory, AutoData]
@@ -42,7 +42,7 @@ public class ProgramTests
     {
         ActWithExistingFile($"{filename}.{extension}", "")
             .Should()
-            .Be(new ProgramOutput(0, "found 0", ""));
+            .SucceedWithCount(0);
     }
     
     [Theory, AutoData]
@@ -53,7 +53,7 @@ public class ProgramTests
     {
         ActWithExistingFile($"{filename}.{extension}", $"{filename}\n{filename}")
             .Should()
-            .Be(new ProgramOutput(0, "found 2", ""));
+            .SucceedWithCount(2);
     }
     
     [Theory, AutoData]
@@ -65,7 +65,7 @@ public class ProgramTests
     {
         ActWithExistingFile($"{filename}.{extension1}.{extension2}", $"{filename}.{extension1}")
             .Should()
-            .Be(new ProgramOutput(0, "found 1", ""));
+            .SucceedWithCount(1);
     }
     
     [Theory, AutoData]
@@ -73,7 +73,7 @@ public class ProgramTests
     {
         ActWithExistingFile(filename, $"{filename}{filename}")
             .Should()
-            .Be(new ProgramOutput(0, "found 2", ""));
+            .SucceedWithCount(2);
     }
 
     private static ProgramOutput ActWithExistingFile(string filename, string contents)
