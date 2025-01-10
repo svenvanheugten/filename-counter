@@ -3,14 +3,9 @@ using System.IO;
 using System.Text;
 namespace ConsoleApp1
 {
-    public class Program
+    public static class Program
     {
-        public static string[] args;
-        Program(string[] args)
-        {
-            Program.args = args;
-        }
-        private void Run()
+        public static int Main(string[] args)
         {
             var f = File.Open(args[0], FileMode.Open);
             int pos = args[0].IndexOf('.');
@@ -26,11 +21,6 @@ namespace ConsoleApp1
                     counter++;  
             }
             Console.WriteLine("found " + counter);
-        }
-        public static int Main(string[] args)
-        {
-            Program program = new Program(args);
-            program.Run();
             return 0;
         }
     }
