@@ -13,12 +13,12 @@ public class ProgramTests
             .Be(new ProgramOutput(1, "", $"Usage: {AppDomain.CurrentDomain.FriendlyName} [path]"));
     }
 
-    [Theory, AutoData] // TODO: Fix this bug.
-    public void Main_WithNonExistingFile_UnfortunatelyThrowsFileNotFoundException(string filename)
+    [Theory, AutoData]
+    public void Main_WithNonExistingFile_PrintsReadableError(string path)
     {
-        var act = () => Act(filename);
-
-        act.Should().Throw<FileNotFoundException>();
+        Act(path)
+            .Should()
+            .Be(new ProgramOutput(1, "", $"Error: The file {path} does not exist."));
     }
     
     [Theory, AutoData] // TODO: Fix this bug.

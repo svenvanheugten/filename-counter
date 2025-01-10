@@ -10,6 +10,14 @@ public static class Program
             return 1;
         }
 
+        var path = args[0];
+
+        if (!File.Exists(path))
+        {
+            Console.Error.WriteLine($"Error: The file {path} does not exist.");
+            return 1;
+        }
+
         using var f = File.Open(args[0], FileMode.Open);
         int pos = args[0].IndexOf('.');
         string name = args[0].Substring(0, pos);
