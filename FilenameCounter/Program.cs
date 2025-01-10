@@ -1,27 +1,23 @@
-using System;
-using System.IO;
-using System.Text;
-namespace ConsoleApp1
+namespace FilenameCounter;
+
+public static class Program
 {
-    public static class Program
+    public static int Main(string[] args)
     {
-        public static int Main(string[] args)
+        var f = File.Open(args[0], FileMode.Open);
+        int pos = args[0].IndexOf('.');
+        string name = args[0].Substring(0, pos);
+        System.IO.StreamReader file = new System.IO.StreamReader(f);
+        string line;
+        int counter = 0;
+        while (true)
         {
-            var f = File.Open(args[0], FileMode.Open);
-            int pos = args[0].IndexOf('.');
-            string name = args[0].Substring(0, pos);
-            System.IO.StreamReader file = new System.IO.StreamReader(f);
-            string line;
-            int counter = 0;
-            while (true)
-            {
-                line = file.ReadLine();
-                if (line == null) break;
-                if (line.Contains(name))
-                    counter++;  
-            }
-            Console.WriteLine("found " + counter);
-            return 0;
+            line = file.ReadLine();
+            if (line == null) break;
+            if (line.Contains(name))
+                counter++;  
         }
+        Console.WriteLine("found " + counter);
+        return 0;
     }
 }

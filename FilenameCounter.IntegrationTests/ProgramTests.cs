@@ -1,6 +1,5 @@
 ﻿using AutoFixture.Xunit2;
 using FluentAssertions;
-using ConsoleApp1;
 
 namespace FilenameCounter.IntegrationTests;
 
