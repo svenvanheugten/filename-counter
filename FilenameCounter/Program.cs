@@ -19,22 +19,10 @@ public static class Program
         }
 
         var filenameWithoutExtension = Path.GetFileNameWithoutExtension(path);
-        
-        using var file = File.Open(path, FileMode.Open);
-        using var streamReader = new StreamReader(file);
-        var counter = 0;
+        var stringSearcherOverFileContents = new StringSearcher(File.ReadAllText(path));
+        var count = stringSearcherOverFileContents.CountOccurrences(filenameWithoutExtension);
 
-        while (!streamReader.EndOfStream)
-        {
-            var line = streamReader.ReadLine();
-
-            if (line != null && line.Contains(filenameWithoutExtension))
-            {
-                counter++;
-            }
-        }
-
-        Console.WriteLine("found " + counter);
+        Console.WriteLine("found " + count);
 
         return 0;
     }

@@ -67,13 +67,13 @@ public class ProgramTests
             .Should()
             .Be(new ProgramOutput(0, "found 1", ""));
     }
-
-    [Theory, AutoData] // TODO: Fix this bug.
-    public void Main_WithFile_WhichContainsTwoOccurrencesInOneLine_UnfortunatelyFindsOneOccurrence(string filename)
+    
+    [Theory, AutoData]
+    public void Main_WithFile_WhichContainsTwoOccurrencesInOneLine_FindsTwoOccurrences(string filename)
     {
         ActWithExistingFile(filename, $"{filename}{filename}")
             .Should()
-            .Be(new ProgramOutput(0, "found 1", ""));
+            .Be(new ProgramOutput(0, "found 2", ""));
     }
 
     private static ProgramOutput ActWithExistingFile(string filename, string contents)
