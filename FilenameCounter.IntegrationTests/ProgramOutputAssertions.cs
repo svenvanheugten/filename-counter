@@ -9,7 +9,7 @@ public class ProgramOutputAssertions : ObjectAssertions<ProgramOutput, ProgramOu
     
     public AndConstraint<ProgramOutputAssertions> SucceedWithCount(int count)
     {
-        Subject.Should().Be(new ProgramOutput(0, $"found {count}", ""));
+        Subject.Should().Be(new ProgramOutput(0, $"Found {count} occurrences in file.", ""));
         return new(this);
     }
 
