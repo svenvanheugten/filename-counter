@@ -5,12 +5,12 @@ namespace FilenameCounter.IntegrationTests;
 
 public class ProgramTests
 {
-    [Fact] // TODO: Fix this bug.
-    public void Main_WithoutArguments_UnfortunatelyThrowsIndexOutOfRangeException()
+    [Fact]
+    public void Main_WithoutArguments_PrintsUsageInstructionsToStderr()
     {
-        var act = () => Act();
-
-        act.Should().Throw<IndexOutOfRangeException>();
+        Act()
+            .Should()
+            .Be(new ProgramOutput(1, "", $"Usage: {AppDomain.CurrentDomain.FriendlyName} [path]"));
     }
 
     [Theory, AutoData] // TODO: Fix this bug.
