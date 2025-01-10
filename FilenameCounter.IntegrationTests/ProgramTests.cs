@@ -9,7 +9,7 @@ public class ProgramTests
     [Fact] // TODO: Fix this bug.
     public void Main_WithoutArguments_UnfortunatelyThrowsIndexOutOfRangeException()
     {
-        var act = () => Program.Main([]);
+        var act = () => Act();
 
         act.Should().Throw<IndexOutOfRangeException>();
     }
@@ -17,7 +17,7 @@ public class ProgramTests
     [Theory, AutoData] // TODO: Fix this bug.
     public void Main_WithNonExistingFile_UnfortunatelyThrowsFileNotFoundException(string filename)
     {
-        var act = () => Program.Main([filename]);
+        var act = () => Act(filename);
 
         act.Should().Throw<FileNotFoundException>();
     }
@@ -65,13 +65,16 @@ public class ProgramTests
     {
         var path = Path.Combine(Path.GetTempPath(), filename);
         File.WriteAllText(path, contents);
+        return Act(path);
+    }
 
+    private static ProgramOutput Act(params string[] args)
+    {
         using var stdout = new StringWriter();
         using var stderr = new StringWriter();
         Console.SetOut(stdout);
         Console.SetError(stderr);
-        var exitCode = Program.Main([path]);
-
+        var exitCode = Program.Main(args);
         return new(exitCode, stdout.ToString().Trim(), stderr.ToString().Trim());
     }
 
