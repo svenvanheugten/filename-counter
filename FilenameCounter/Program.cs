@@ -10,10 +10,10 @@ public static class Program
             return 1;
         }
 
-        var f = File.Open(args[0], FileMode.Open);
+        using var f = File.Open(args[0], FileMode.Open);
         int pos = args[0].IndexOf('.');
         string name = args[0].Substring(0, pos);
-        System.IO.StreamReader file = new System.IO.StreamReader(f);
+        using var file = new System.IO.StreamReader(f);
         string line;
         int counter = 0;
         while (true)
