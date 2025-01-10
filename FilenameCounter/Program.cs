@@ -22,7 +22,7 @@ public static class Program
         var stringSearcherOverFileContents = new StringSearcher(File.ReadAllText(path));
         var count = stringSearcherOverFileContents.CountOccurrences(filenameWithoutExtension);
 
-        Console.WriteLine("found " + count);
+        Console.WriteLine($"found {count}");
 
         return 0;
     }
