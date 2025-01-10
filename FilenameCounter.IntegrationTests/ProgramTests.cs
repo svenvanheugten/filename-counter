@@ -48,6 +48,18 @@ public class ProgramTests
             .Should()
             .Be("found 0");
     }
+    
+    [Theory, AutoData] // TODO: Fix this bug.
+    public void Main_WithFileWithTwoExtensions_WhichContainsOneOccurrence_UnfortunatelyFindsZeroOccurrences(
+        string filename,
+        string extension1,
+        string extension2
+    )
+    {
+        ActWithExistingFile($"{filename}.{extension1}.{extension2}", $"{filename}")
+            .Should()
+            .Be("found 0");
+    }
 
     private static string ActWithExistingFile(string filename, string contents)
     {
