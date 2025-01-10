@@ -21,12 +21,20 @@ public class ProgramTests
             .Be(new ProgramOutput(1, "", $"Error: The file {path} does not exist."));
     }
     
-    [Theory, AutoData] // TODO: Fix this bug.
-    public void Main_WithFileWithoutExtension_UnfortunatelyThrowsArgumentOutOfRangeException(string filename)
+    [Theory, AutoData]
+    public void Main_WithFileWithoutExtension_WhichIsEmpty_FindsZeroOccurrences(string filename)
     {
-        var act = () => ActWithExistingFile(filename, "");
-        
-        act.Should().Throw<ArgumentOutOfRangeException>();
+        ActWithExistingFile(filename, "")
+            .Should()
+            .Be(new ProgramOutput(0, "found 0", ""));
+    }
+
+    [Theory, AutoData]
+    public void Main_WithFileWithoutExtension_WhichContainsTwoOccurrences_FindsTwoOccurrences(string filename)
+    {
+        ActWithExistingFile(filename, $"{filename}\n{filename}")
+            .Should()
+            .Be(new ProgramOutput(0, "found 2", ""));
     }
 
     [Theory, AutoData]
@@ -37,27 +45,27 @@ public class ProgramTests
             .Be(new ProgramOutput(0, "found 0", ""));
     }
     
-    [Theory, AutoData] // TODO: Fix this bug.
-    public void Main_WithFileWithExtension_WhichContainsTwoOccurrences_UnfortunatelyFindsZeroOccurrences(
+    [Theory, AutoData]
+    public void Main_WithFileWithExtension_WhichContainsTwoOccurrences_FindsTwoOccurrences(
         string filename,
         string extension
     )
     {
         ActWithExistingFile($"{filename}.{extension}", $"{filename}\n{filename}")
             .Should()
-            .Be(new ProgramOutput(0, "found 0", ""));
+            .Be(new ProgramOutput(0, "found 2", ""));
     }
     
-    [Theory, AutoData] // TODO: Fix this bug.
-    public void Main_WithFileWithTwoExtensions_WhichContainsOneOccurrence_UnfortunatelyFindsZeroOccurrences(
+    [Theory, AutoData]
+    public void Main_WithFileWithTwoExtensions_WhichContainsOneOccurrence_FindsOneOccurrence(
         string filename,
         string extension1,
         string extension2
     )
     {
-        ActWithExistingFile($"{filename}.{extension1}.{extension2}", $"{filename}")
+        ActWithExistingFile($"{filename}.{extension1}.{extension2}", $"{filename}.{extension1}")
             .Should()
-            .Be(new ProgramOutput(0, "found 0", ""));
+            .Be(new ProgramOutput(0, "found 1", ""));
     }
 
     private static ProgramOutput ActWithExistingFile(string filename, string contents)

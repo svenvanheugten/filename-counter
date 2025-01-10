@@ -18,9 +18,8 @@ public static class Program
             return 1;
         }
 
-        using var f = File.Open(args[0], FileMode.Open);
-        int pos = args[0].IndexOf('.');
-        string name = args[0].Substring(0, pos);
+        using var f = File.Open(path, FileMode.Open);
+        var name = Path.GetFileNameWithoutExtension(path);
         using var file = new System.IO.StreamReader(f);
         string line;
         int counter = 0;
