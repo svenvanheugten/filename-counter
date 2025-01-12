@@ -16,6 +16,14 @@ public class ProgramTests
                 $"appears in the file's contents."
             );
     }
+    
+    [Theory, AutoData]
+    public void Main_WithTooManyArguments_PrintsError(string argument1, string argument2)
+    {
+        Act(argument1, argument2)
+            .Should()
+            .FailWithError($"Expected 1 argument, but found 2.");
+    }
 
     [Theory, AutoData]
     public void Main_WithNonExistingFile_PrintsReadableError(string path)

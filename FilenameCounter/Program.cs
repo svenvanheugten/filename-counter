@@ -4,14 +4,18 @@ public static class Program
 {
     public static int Main(string[] args)
     {
-        if (args.Length == 0)
+        switch (args.Length)
         {
-            Console.Error.WriteLine(
-                $"Usage: {AppDomain.CurrentDomain.FriendlyName} [path]\n" +
-                $"This program counts how many times a filename (minus the extension) " +
-                $"appears in the file's contents."
-            );
-            return 1;
+            case 0:
+                Console.Error.WriteLine(
+                    $"Usage: {AppDomain.CurrentDomain.FriendlyName} [path]\n" +
+                    $"This program counts how many times a filename (minus the extension) " +
+                    $"appears in the file's contents."
+                );
+                return 1;
+            case > 1:
+                Console.Error.WriteLine($"Expected 1 argument, but found {args.Length}.");
+                return 1;
         }
 
         var path = args[0];
