@@ -1,6 +1,10 @@
 Filename Counter
 ----------------
 
+Usage: `FilenameCounter [path]`
+
+This program counts how many times a filename (minus the extension) appears in the file's contents.
+
 Additional assumptions:
 
 * The file fits in memory, which makes it OK to use `File.ReadAllText`, rather than having to stream the input.

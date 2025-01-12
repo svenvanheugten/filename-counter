@@ -6,7 +6,11 @@ public static class Program
     {
         if (args.Length == 0)
         {
-            Console.Error.WriteLine($"Usage: {AppDomain.CurrentDomain.FriendlyName} [path]");
+            Console.Error.WriteLine(
+                $"Usage: {AppDomain.CurrentDomain.FriendlyName} [path]\n" +
+                $"This program counts how many times a filename (minus the extension) " +
+                $"appears in the file's contents."
+            );
             return 1;
         }
 

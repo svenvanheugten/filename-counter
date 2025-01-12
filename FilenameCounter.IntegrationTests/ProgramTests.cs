@@ -10,7 +10,11 @@ public class ProgramTests
     {
         Act()
             .Should()
-            .FailWithError($"Usage: {AppDomain.CurrentDomain.FriendlyName} [path]");
+            .FailWithError(
+                $"Usage: {AppDomain.CurrentDomain.FriendlyName} [path]\n" +
+                $"This program counts how many times a filename (minus the extension) " +
+                $"appears in the file's contents."
+            );
     }
 
     [Theory, AutoData]
